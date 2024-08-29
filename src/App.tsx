@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
   return (
-    <div style={{ height: '100vh' }}>
+    <div className='h-screen overflow-hidden'>
       <Header />
       <Allotment defaultSizes={[100, 100]}>
         <Allotment.Pane minSize={0}>

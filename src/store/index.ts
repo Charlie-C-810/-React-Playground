@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import { EditorFile } from './components/CodeEditor/Editor';
-import { fileName2Language } from './utils';
-import { initFiles } from './files';
+import { EditorFile } from '../components/CodeEditor/Editor';
+import { fileName2Language } from '../utils';
+import { initFiles } from '../files';
 
 export interface Files {
   [key: string]: EditorFile;
@@ -22,9 +22,17 @@ export interface PlaygroundContext {
   removeFile: (fileName: string) => void;
   // 修改文件名称
   updateFileName: (oldFieldName: string, newFieldName: string) => void;
+  // 移动文件
+  swapFileName: (oldFieldName: string, newFieldName: string) => void;
+  count: number;
+  setCount: any
 }
 
 const useStore = create<PlaygroundContext>((set, get) => ({
+  count: 1,
+  setCount() {
+    return set({ count: get().count + 1 })
+  },
   files: initFiles,
   selectedFileName: 'App.tsx',
   setSelectedFileName: (fileName) => set({ selectedFileName: fileName }),
@@ -61,6 +69,21 @@ const useStore = create<PlaygroundContext>((set, get) => ({
     };
     return set({ files: newFile });
   },
+  swapFileName(oldFieldName: string, newFieldName: string) {
+    const files = get().files;
+
+    const oldValue = files[oldFieldName]
+    files[oldFieldName] = {
+      ...files[newFieldName],
+      name: oldFieldName
+    }
+    files[newFieldName] = {
+      ...oldValue,
+      name: newFieldName
+    }
+
+    return set({ files });
+  }
 }));
 
 export default useStore;
