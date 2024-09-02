@@ -24,15 +24,9 @@ export interface PlaygroundContext {
   updateFileName: (oldFieldName: string, newFieldName: string) => void;
   // 移动文件
   swapFileName: (oldFieldName: string, newFieldName: string) => void;
-  count: number;
-  setCount: any
 }
 
 const useStore = create<PlaygroundContext>((set, get) => ({
-  count: 1,
-  setCount() {
-    return set({ count: get().count + 1 })
-  },
   files: initFiles,
   selectedFileName: 'App.tsx',
   setSelectedFileName: (fileName) => set({ selectedFileName: fileName }),
