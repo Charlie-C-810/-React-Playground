@@ -1,5 +1,5 @@
-import MonacoEditor, { EditorProps, OnMount } from '@monaco-editor/react';
-import { FC } from 'react';
+import MonacoEditor, { EditorProps, Monaco, OnMount } from '@monaco-editor/react';
+import { forwardRef } from 'react';
 import { createATA } from './ata';
 import { editor } from 'monaco-editor';
 
@@ -13,7 +13,7 @@ interface IProps {
   onChange?: EditorProps['onChange'];
   options?: editor.IStandaloneEditorConstructionOptions;
 }
-const Editor: FC<IProps> = (props) => {
+const Editor = (props: IProps, ref: any) => {
   const { file, onChange, options } = props;
 
   const handleEditorMount: OnMount = (editor, monaco) => {
@@ -39,6 +39,10 @@ const Editor: FC<IProps> = (props) => {
     editor.onDidChangeModelContent(() => {
       ata(editor.getValue());
     });
+
+    editor.onDidFocusEditorText(() => {
+      ata(editor.getValue());
+    })
 
     ata(editor.getValue());
   };

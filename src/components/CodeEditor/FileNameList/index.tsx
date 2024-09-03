@@ -2,7 +2,11 @@ import { FC, WheelEvent, useCallback, useEffect, useRef, useState } from 'react'
 import useStore from '@/store';
 import { FileNameItem } from './FileNameItem';
 
-const FileNameList: FC = () => {
+interface IProps {
+  onClick: () => void
+}
+
+const FileNameList: FC<IProps> = () => {
   const files = useStore(state => state.files);
   const selectedFileName = useStore(state => state.selectedFileName);
   const setSelectedFileName = useStore(state => state.setSelectedFileName);
@@ -26,8 +30,6 @@ const FileNameList: FC = () => {
     setTabs(Object.keys(files));
   }, [files]);
 
-  console.log(123);
-
   return (
     <div className="flex items-center h-12 overflow-x-auto overflow-y-hidden	border-b border-solid  border-gray-400 box-border	text-black	bg-white scroll-bar" ref={containerRef} onWheel={handleWheel}>
       {tabs.map((item, index) => (
@@ -35,7 +37,9 @@ const FileNameList: FC = () => {
           key={item + index}
           value={item}
           actived={selectedFileName === item}
-          onClick={() => setSelectedFileName(item)}
+          onClick={() => {
+            setSelectedFileName(item)
+          }}
           index={index}
           swapIndex={swapIndex}
         ></FileNameItem>

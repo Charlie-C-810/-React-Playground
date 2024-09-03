@@ -4,11 +4,20 @@ import { transform } from "@babel/standalone";
 import { PluginObj } from '@babel/core';
 import { EditorFile } from "../CodeEditor/Editor";
 
-export const babelTransform = (filename: string, code: string, files: Files) => {
-  let result = ""
+export const beforeTransformCode = (filename: string, code: string) => {
+  let _code = code
+  const regexReact = /import\s+React/g
+  if ((filename.endsWith('.jsx') || filename.endsWith('.tsx')) && !regexReact.test(code)) {
+    _code = `import React from 'react';\n${code}`
+  }
+  return _code
+}
 
+export const babelTransform = (filename: string, code: string, files: Files) => {
+  let _code = beforeTransformCode(filename, code);
+  let result = ''
   try {
-    result = transform(code, {
+    result = transform(_code, {
       presets: ['react', 'typescript'],
       filename,
       plugins: [customResolver(files)],
