@@ -38,7 +38,7 @@ const useStore = create<PlaygroundContext>((set, get) => ({
       language: fileName2Language(name),
       value: '',
     };
-    return set({ files });
+    return set({ files: { ...files } });
   },
   removeFile: (name) => {
     const files = get().files;
@@ -61,7 +61,7 @@ const useStore = create<PlaygroundContext>((set, get) => ({
         name: newFieldName,
       },
     };
-    return set({ files: newFile });
+    return set({ files: { ...rest, ...newFile } });
   },
   swapFileName(oldFieldName: string, newFieldName: string) {
     const files = get().files;
