@@ -67,6 +67,7 @@ export const FileNameItem: React.FC<FileNameItemProps> = (props) => {
   useEffect(() => {
     if (creating) {
       inputRef?.current?.focus()
+
     }
   }, [creating])
 
