@@ -7,6 +7,7 @@ const FileNameList: FC = () => {
   const selectedFileName = useStore(state => state.selectedFileName);
   const setSelectedFileName = useStore(state => state.setSelectedFileName);
   const addFile = useStore(state => state.addFile);
+  const updateFileName = useStore(state => state.updateFileName)
 
   const [tabs, setTabs] = useState(['']);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,6 +32,13 @@ const FileNameList: FC = () => {
     setCreating(true)
   }
 
+  const handleEditComplete = (name: string, prevName: string) => {
+    updateFileName(prevName, name);
+    setSelectedFileName(name);
+    setCreating(false);
+  }
+
+
   useEffect(() => {
     setTabs(Object.keys(files));
   }, [files]);
@@ -48,6 +56,7 @@ const FileNameList: FC = () => {
           index={index}
           swapIndex={swapIndex}
           creating={index === arr.length - 1 && creating}
+          onEditComplete={(name: string) => handleEditComplete(name, item)}
         ></FileNameItem>
       ))}
       <div onClick={addTab}>

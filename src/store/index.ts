@@ -43,7 +43,7 @@ const useStore = create<PlaygroundContext>((set, get) => ({
   removeFile: (name) => {
     const files = get().files;
     delete files[name];
-    return set({ files });
+    return set({ files: { ...files } });
   },
   updateFileName: (oldFieldName: string, newFieldName: string) => {
     const files = get().files;
