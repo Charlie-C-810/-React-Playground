@@ -7,6 +7,8 @@ export interface Files {
   [key: string]: EditorFile;
 }
 
+export type Theme = "light" | "dark"
+
 export interface PlaygroundContext {
   // 文件对象
   files: Files;
@@ -24,9 +26,12 @@ export interface PlaygroundContext {
   updateFileName: (oldFieldName: string, newFieldName: string) => void;
   // 移动文件
   swapFileName: (oldFieldName: string, newFieldName: string) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void
 }
 
 const useStore = create<PlaygroundContext>((set, get) => ({
+  theme: "light",
   files: initFiles,
   selectedFileName: 'App.tsx',
   setSelectedFileName: (fileName) => set({ selectedFileName: fileName }),
@@ -77,6 +82,9 @@ const useStore = create<PlaygroundContext>((set, get) => ({
     }
 
     return set({ files });
+  },
+  setTheme(theme: Theme) {
+    return set({ theme })
   }
 }));
 

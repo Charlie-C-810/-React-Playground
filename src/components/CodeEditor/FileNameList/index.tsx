@@ -44,7 +44,7 @@ const FileNameList: FC = () => {
   }, [files]);
 
   return (
-    <div className="flex items-center h-12 overflow-x-auto overflow-y-hidden	border-b border-solid  border-gray-400 box-border	text-black	bg-white scroll-bar" ref={containerRef} onWheel={handleWheel}>
+    <div className="flex items-center h-12 overflow-x-auto overflow-y-hidden	border-b border-solid  border-gray-400 box-border	text-black	bg-white scroll-bar dark:bg-darkBgColor" ref={containerRef} onWheel={handleWheel}>
       {tabs.map((item, index, arr) => (
         <FileNameItem
           key={item + index}

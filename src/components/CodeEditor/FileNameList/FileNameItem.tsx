@@ -87,7 +87,7 @@ export const FileNameItem: React.FC<FileNameItemProps> = (props) => {
     <div
       ref={ref}
       className={classnames(
-        `inline-flex pt-2  pb-2.5  px-1.5 cursor-pointer text-sm	items-center border-b-4 border-solid   ${actived ? 'border-cyan-400 text-cyan-400' : 'border-transparent'
+        `inline-flex pt-2  pb-2.5  px-1.5 cursor-pointer text-sm	items-center border-b-4 border-solid   ${actived ? 'border-cyan-400 text-cyan-400' : 'border-transparent dark:text-white'
         } ${isOver ? " bg-cyan-100" : ""}`,
       )}
       onClick={onClick}

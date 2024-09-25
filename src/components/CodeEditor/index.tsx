@@ -8,6 +8,7 @@ const CodeEditor: FC = () => {
   const files = useStore(state => state.files);
   const selectedFileName = useStore(state => state.selectedFileName);
   const setFiles = useStore(state => state.setFiles);
+  const theme = useStore(state => state.theme);
   const file = files[selectedFileName];
 
 
@@ -17,9 +18,11 @@ const CodeEditor: FC = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div className="flex flex-col h-full ">
       <FileNameList />
-      <Editor file={file} onChange={onEditorChange} />
+      <Editor file={file} onChange={onEditorChange} options={
+        { theme: `vs-${theme}` }
+      } />
     </div>
   );
 };
