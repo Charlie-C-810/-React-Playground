@@ -5,9 +5,24 @@ import CodeEditor from './components/CodeEditor';
 import Preview from './components/Preview';
 import './App.css';
 import useStore from './store';
+import { useEffect } from 'react';
+import { compress } from './utils';
 
 function App() {
   const theme = useStore(state => state.theme)
+  useEffect(() => {
+    const unsubscribe = useStore.subscribe((state) => {
+      console.log("state", state);
+
+      const hash = compress(JSON.stringify(state.files))
+      console.log("hash", hash);
+
+      window.location.hash = hash
+    });
+
+    // 清理函数
+    return () => unsubscribe();
+  }, []);
   return (
     <div className={`h-screen ${theme === 'dark' ? 'dark' : ''}`}>
       <Header />

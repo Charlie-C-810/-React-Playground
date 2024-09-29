@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { EditorFile } from '../components/CodeEditor/Editor';
-import { fileName2Language } from '../utils';
+import { fileName2Language, uncompress } from '../utils';
 import { initFiles } from '../files';
 
 export interface Files {
@@ -30,9 +30,21 @@ export interface PlaygroundContext {
   setTheme: (theme: Theme) => void
 }
 
+const getFilesFromUrl = () => {
+  let files: Files | undefined
+  try {
+    const hash = uncompress(window.location.hash.slice(1))
+    files = JSON.parse(hash)
+  } catch (error) {
+    console.error(error)
+  }
+  return files
+}
+
+
 const useStore = create<PlaygroundContext>((set, get) => ({
   theme: "light",
-  files: initFiles,
+  files: getFilesFromUrl() || initFiles,
   selectedFileName: 'App.tsx',
   setSelectedFileName: (fileName) => set({ selectedFileName: fileName }),
   setFiles: (files) => set({ files }),

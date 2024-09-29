@@ -2,7 +2,8 @@ import { OnChange } from '@monaco-editor/react';
 import useStore from '@/store';
 import Editor from './Editor';
 import FileNameList from './FileNameList';
-import { FC, useRef } from 'react';
+import { FC, useEffect } from 'react';
+import { compress } from '@/utils';
 
 const CodeEditor: FC = () => {
   const files = useStore(state => state.files);
@@ -16,6 +17,8 @@ const CodeEditor: FC = () => {
     files[file.name].value = value!
     setFiles({ ...files })
   }
+
+
 
   return (
     <div className="flex flex-col h-full ">

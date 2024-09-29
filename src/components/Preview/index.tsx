@@ -40,7 +40,6 @@ const Preview: FC = () => {
   // }, [files])
 
   useEffect(() => {
-    console.log(compiledCode);
     setIframeUrl(getIframeUrl())
   }, [files[IMPORT_MAP_FILE_NAME].value, compiledCode]);
 
